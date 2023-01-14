@@ -19,3 +19,4 @@ static3==0.7.0
 tzdata==2022.6
 whitenoise==6.3.0
 django-heroku==0.3.1
+django-cors-headers==3.13.0
