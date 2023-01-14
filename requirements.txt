@@ -21,3 +21,4 @@ tzdata==2022.6
 whitenoise==6.3.0
 django-heroku==0.3.1
 django-cors-headers==3.13.0
+social-auth-app-django==5.0.0
