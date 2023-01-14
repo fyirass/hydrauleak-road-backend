@@ -1,1 +1,1 @@
-web: gunicorn hydrauleakroad.wsgi --log-file -
+web: gunicorn hydrauleakroad.wsgi:application --log-file - --log-level debug
