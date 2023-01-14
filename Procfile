@@ -1,0 +1,1 @@
+web: gunicorn hydrauleakroad.wsgi --log-file -
