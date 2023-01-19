@@ -28,7 +28,7 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     
-    path('api/accounts/', include('accounts.urls')),
+    path('api/user/', include('user.urls')),
     path('api/feed/', include('feed.urls')),
     path('api/clients/', include('clients.urls')),
     path('api/contracts/', include('contracts.urls')),
@@ -40,7 +40,7 @@ urlpatterns = [
     # path('auth/', include('djoser.urls.jwt')),
     # path('auth/', include('djoser.social.urls')),
     
-    path('auth/user/', include('accounts.urls')),
+    
     
 ]
 

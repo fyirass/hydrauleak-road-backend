@@ -11,10 +11,12 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+
 import os
+
 from datetime import timedelta
 
-
+from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-cd$o(krth9w9*weuc_(h4ptjorw_*aq1jeikbiy+e+z!8dgb7#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -41,22 +43,30 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts',
+    
+    'django_extensions', #Great packaged to access abstract models
+    'django_filters', #Used with DRF
+    
+    
+    'corsheaders',
+    'rest_framework',
+    'djoser',
+    'social_django',
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
+     'user',
     'clients',
     'contracts',
     'interventions',
     'listing',
     'reports',
     'feed',
-    'corsheaders',
-    'rest_framework',
-    'djoser',
-    'social_django',
-    'rest_framework_simplejwt',
-    'rest_framework_simplejwt.token_blacklist'
+
 ]
 
 MIDDLEWARE = [
+    
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'corsheaders.middleware.CorsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -73,7 +83,7 @@ ROOT_URLCONF = 'hydrauleakroad.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'build')],
+        'DIRS': [],
         
         'APP_DIRS': True,
         'OPTIONS': {
@@ -103,31 +113,31 @@ WSGI_APPLICATION = 'hydrauleakroad.wsgi.application'
 # }
 
 
-# DATABASES = {
-#     'default': {
-#         #'ENGINE': 'django.db.backends.sqlite3',
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'HkRoadDb',
-#         'USER': 'postgres',
-#         'PASSWORD': 'admin',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
-
-
-
 DATABASES = {
     'default': {
         #'ENGINE': 'django.db.backends.sqlite3',
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dbcnjn954g0279',
-        'USER': 'urlj7fb9rpa6n',
-        'PASSWORD': 'p2b6f11c0d0abdac01f57cb51e00aad5594455f69d4fd545d10058757fc88b8cd',
-        'HOST': 'ec2-52-211-150-213.eu-west-1.compute.amazonaws.com',
+        'NAME': 'HkRoadDb',
+        'USER': 'postgres',
+        'PASSWORD': 'admin',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
+
+
+
+# DATABASES = {
+#     'default': {
+#         #'ENGINE': 'django.db.backends.sqlite3',
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'dbcnjn954g0279',
+#         'USER': 'urlj7fb9rpa6n',
+#         'PASSWORD': 'p2b6f11c0d0abdac01f57cb51e00aad5594455f69d4fd545d10058757fc88b8cd',
+#         'HOST': 'ec2-52-211-150-213.eu-west-1.compute.amazonaws.com',
+#         'PORT': '5432',
+#     }
+# }
 
 
 
@@ -178,13 +188,11 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'build/static')]
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = BASE_DIR / 'static'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 
 
 # Default primary key field type
@@ -209,7 +217,10 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 FILE_UPLOAD_PERMISSIONS=0o640
 
-AUTH_USER_MODEL = 'accounts.UserAccount'
+AUTH_USER_MODEL = 'user.User'
+
+
+
 
 # AUTHENTICATION_BACKENDS = (
 #     'social_core.backends.google.GoogleOAuth2',
