@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
-
+from datetime import datetime
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         # Creates and saves a User with the given email and password
@@ -19,12 +19,14 @@ class UserManager(BaseUserManager):
         return user
 
 class User(AbstractBaseUser, PermissionsMixin):
+    name = models.CharField(max_length=25, blank=True)
     email = models.EmailField(max_length=255, unique=True)
     phone = models.CharField(max_length=20, blank=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     is_leaker = models.BooleanField(default=False)
     is_client = models.BooleanField(default=False)
+    date_joined = models.DateTimeField(auto_now_add=True)
     objects = UserManager()
     USERNAME_FIELD = 'email'
 
