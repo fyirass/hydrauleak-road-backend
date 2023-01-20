@@ -24,9 +24,7 @@ class Intervention(models.Model):
     intervention_type = models.CharField(max_length=50, choices=InterventionType.choices, default=InterventionType.SIMPLE)
     intervention_status = models.CharField(max_length=50, choices=InterventionStatus.choices, default=InterventionStatus.NOTSTART)
     
-     
-    intervention_date = models.DateTimeField(default=now, blank=True)
-    
+    intervention_date = models.DateTimeField(default=now, blank=True) 
     address = models.CharField(max_length=150)
     city = models.CharField(max_length=100)
     state = models.CharField(max_length=100)

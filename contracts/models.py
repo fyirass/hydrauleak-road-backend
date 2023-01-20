@@ -14,7 +14,8 @@ class Contract(models.Model):
         PENDING = 'Pending'
         COMPLETED = 'Completed'
 
-    client = models.ForeignKey(Client, on_delete=models.DO_NOTHING)
+    
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name='contracts')
     contract_title = models.CharField(max_length=150)
     contract_description = models.TextField(blank=True)
     contract_type = models.CharField(max_length=50, choices=ContractType.choices, default=ContractType.SIMPLE)

@@ -1,8 +1,9 @@
 from django.urls import path
-from .views import *
+from .views import ClientList, ClientDetail, ContractList, ContractDetail
 
 urlpatterns = [
-    path('', ContractsView.as_view()),
-    path('search', SearchView.as_view()),
-    path('<contract_title>', ContractView.as_view()),
+    path('clients/', ClientList.as_view()),
+    path('clients/<int:pk>/', ClientDetail.as_view()),
+    path('contracts/', ContractList.as_view()),
+    path('contracts/<int:pk>/', ContractDetail.as_view()),
 ]
