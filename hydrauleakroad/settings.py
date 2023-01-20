@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+    'django.contrib.postgres',
     'django_extensions', #Great packaged to access abstract models
     'django_filters', #Used with DRF
     
@@ -54,12 +54,14 @@ INSTALLED_APPS = [
     'social_django',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
-     'user',
+    'user',
+    'leakers',
     'clients',
     'contracts',
     'interventions',
-    'listing',
     'reports',
+    'maps',
+    'listing',    
     'feed',
 
 ]
@@ -105,25 +107,25 @@ WSGI_APPLICATION = 'hydrauleakroad.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-
 # DATABASES = {
 #     'default': {
-#         #'ENGINE': 'django.db.backends.sqlite3',
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'HkRoadDb',
-#         'USER': 'postgres',
-#         'PASSWORD': 'admin',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
+
+DATABASES = {
+    'default': {
+        #'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'HkRoadDb2',
+        'USER': 'postgres',
+        'PASSWORD': 'admin',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
 
 
 
