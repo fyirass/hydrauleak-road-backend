@@ -90,14 +90,14 @@ class Map(models.Model):
     map_title = models.CharField(max_length=100)
     map_description = models.TextField()
     map_creation_date = models.DateTimeField(default=datetime.now)
-    map_photo = models.ImageField(upload_to='maps', blank=True)
+    # map_photo = models.ImageField(upload_to='maps', blank=True)
     zone_number = models.IntegerField(default=0)
     sensor_number = models.IntegerField(default=0)
     pipe_number = models.IntegerField(default=0)
     leakervehicle_number = models.IntegerField(default=0)
 
     def save(self, *args, **kwargs):
-        self.zone_number = self.map_zones.count()
+        self.zone_number = self.zone.objects.count()
         self.sensor_number = self.map_sensors.count()
         self.pipe_number = self.map_pipes.count()
         self.leakervehicle_number = self.map_leaker_vehicles.count()

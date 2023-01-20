@@ -115,31 +115,31 @@ WSGI_APPLICATION = 'hydrauleakroad.wsgi.application'
 # }
 
 
-DATABASES = {
-    'default': {
-        #'ENGINE': 'django.db.backends.sqlite3',
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'HkRoadDb2',
-        'USER': 'postgres',
-        'PASSWORD': 'admin',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
-
-
-
 # DATABASES = {
 #     'default': {
 #         #'ENGINE': 'django.db.backends.sqlite3',
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'dbcnjn954g0279',
-#         'USER': 'urlj7fb9rpa6n',
-#         'PASSWORD': 'p2b6f11c0d0abdac01f57cb51e00aad5594455f69d4fd545d10058757fc88b8cd',
-#         'HOST': 'ec2-52-211-150-213.eu-west-1.compute.amazonaws.com',
+#         'NAME': 'HkRoadDb2',
+#         'USER': 'postgres',
+#         'PASSWORD': 'admin',
+#         'HOST': 'localhost',
 #         'PORT': '5432',
 #     }
 # }
+
+
+
+DATABASES = {
+    'default': {
+        #'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'dev1hk311dal2m',
+        'USER': 'vvuilbygaoadys',
+        'PASSWORD': 'bbd0171ceb15e1485cda534d1e7cc8f6b7d40c500755a340d163ac01cd7d0856',
+        'HOST': 'ec2-99-80-170-190.eu-west-1.compute.amazonaws.com',
+        'PORT': '5432',
+    }
+}
 
 
 

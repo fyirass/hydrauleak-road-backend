@@ -32,7 +32,7 @@ class MarkViewSet(viewsets.ModelViewSet):
 class LeakerVehicleViewSet(viewsets.ModelViewSet):
     queryset = LeakerVehicle.objects.all()
     serializer_class = LeakerVehicleSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticated, IsAdminUser]
 
 class MapViewSet(viewsets.ModelViewSet):
     queryset = Map.objects.all()
