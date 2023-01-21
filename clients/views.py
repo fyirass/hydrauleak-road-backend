@@ -1,20 +1,9 @@
-from rest_framework.generics import ListAPIView, RetrieveAPIView
-from rest_framework import permissions
+from rest_framework import viewsets
 from .models import Client
 from .serializers import ClientSerializer
+from rest_framework.permissions import IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly
 
-class ClientListView(ListAPIView):
-    permission_classes = (permissions.AllowAny, )
+class ClientViewSet(viewsets.ModelViewSet):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
-    pagination_class = None 
-
-class ClientView(RetrieveAPIView):
-    queryset = Client.objects.all()
-    serializer_class = ClientSerializer
-
-class TopSellerView(ListAPIView):
-    permission_classes = (permissions.AllowAny, )
-    # queryset = Client.objects.filter(top_seller=True)
-    serializer_class = ClientSerializer
-    pagination_class = None
+    permission_classes = [IsAuthenticatedOrReadOnly]

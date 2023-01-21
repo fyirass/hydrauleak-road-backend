@@ -3,10 +3,20 @@ from django.contrib.postgres.fields import ArrayField
 from datetime import datetime
 from leakers.models import Leaker
 
-
-class Zone(models.Model):
+class Map(models.Model):
     id = models.AutoField(primary_key=True)
-    map = models.ForeignKey('Map',related_name='map_zones', on_delete=models.CASCADE)
+    map_title = models.CharField(max_length=100)
+    map_description = models.TextField()
+    map_creation_date = models.DateTimeField(default=datetime.now)
+    
+    def __str__(self):
+        return self.map_title
+    
+class Zone(models.Model):
+    
+    id = models.AutoField(primary_key=True)
+    map = models.ForeignKey(Map, on_delete=models.SET_NULL, related_name="maps", null=True, blank=True)
+    zone_num = models.IntegerField(default=0)
     zone_date = models.DateTimeField()
     zone_status = models.CharField(max_length=20,choices=[('notStart', 'Not Started'), ('Pending', 'Pending'), ('Completed', 'Completed')])
     zone_coordinates = ArrayField(models.FloatField(),size=200, default=list)
@@ -15,8 +25,9 @@ class Zone(models.Model):
         return self.zone_status
          
 class Sensor(models.Model):
+    
     id = models.AutoField(primary_key=True)
-    map = models.ForeignKey('Map',related_name='map_sensors', on_delete=models.CASCADE)
+    map = models.ForeignKey(Map, on_delete=models.SET_NULL, null=True, blank=True)
     sensor_coordinates = ArrayField(models.FloatField(),size=2)
     sensor_creationdate = models.DateTimeField(default=datetime.now)
     sensor_photo = models.ImageField(upload_to='sensor', blank=True)
@@ -30,8 +41,9 @@ class Sensor(models.Model):
         return self.sensor_title
 
 class LeakerVehicle(models.Model):
+    
     id = models.AutoField(primary_key=True)
-    map = models.ForeignKey('Map',related_name='map_leaker_vehicles', on_delete=models.CASCADE)
+    map = models.ForeignKey(Map, on_delete=models.SET_NULL, null=True, blank=True)
     leaker = models.OneToOneField(Leaker, on_delete=models.CASCADE)
     leakervehicle_title = models.CharField(max_length=100)
     leakervehicle_description = models.TextField()
@@ -52,7 +64,6 @@ class PipeAcces(models.Model):
 
 class Mark(models.Model):
     id = models.AutoField(primary_key=True)
-    map = models.ForeignKey('Map',related_name='pipe_marks', on_delete=models.CASCADE)
     pipe = models.ForeignKey('Pipe',related_name='pipe_marks', on_delete=models.CASCADE)
     mark_points = ArrayField(models.FloatField(),size=2)
     mark_creation_date = models.DateTimeField(default=datetime.now)
@@ -63,8 +74,9 @@ class Mark(models.Model):
         return self.mark_description
 
 class Pipe(models.Model):
+    
     id = models.AutoField(primary_key=True)
-    map = models.ForeignKey('Map',related_name='map_pipes', on_delete=models.CASCADE)
+    map = models.ForeignKey(Map, on_delete=models.SET_NULL, null=True, blank=True)
     pipe_status = models.CharField(max_length=20,choices=[('good', 'Good'), ('unknown', 'Unknown'), ('critical', 'Critical')])
     pipe_description = models.TextField()
     pipe_creation_date = models.DateTimeField(default=datetime.now)
@@ -85,30 +97,3 @@ class Pipe(models.Model):
         return self.pipe_title
 
 
-class Map(models.Model):
-    id = models.AutoField(primary_key=True)
-    map_title = models.CharField(max_length=100)
-    map_description = models.TextField()
-    map_creation_date = models.DateTimeField(default=datetime.now)
-    # map_photo = models.ImageField(upload_to='maps', blank=True)
-    zone_number = models.IntegerField(default=0)
-    sensor_number = models.IntegerField(default=0)
-    pipe_number = models.IntegerField(default=0)
-    leakervehicle_number = models.IntegerField(default=0)
-
-    def save(self, *args, **kwargs):
-        self.zone_number = self.zone.objects.count()
-        self.sensor_number = self.map_sensors.count()
-        self.pipe_number = self.map_pipes.count()
-        self.leakervehicle_number = self.map_leaker_vehicles.count()
-        super(Map, self).save(*args, **kwargs)
-
-    def __str__(self):
-        return self.map_title
-   
-        
-# class ConcreteMap(Map):
-#     objects = models.Manager()
-
-#     class Meta:
-#         proxy = True
