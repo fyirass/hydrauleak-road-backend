@@ -10,7 +10,7 @@ class ClientViewSet(viewsets.ModelViewSet):
     if User.is_client:  
         queryset = Client.objects.all()
         serializer_class = ClientSerializer
-        permission_classes = [IsAuthenticated, IsAdminUser]
+        permission_classes = [IsAuthenticated]
     else:
         Response({"error":"Is not an client"}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
  

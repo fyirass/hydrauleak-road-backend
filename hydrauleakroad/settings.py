@@ -130,17 +130,6 @@ WSGI_APPLICATION = 'hydrauleakroad.wsgi.application'
 
 
 
-DATABASES = {
-    'default': {
-        #'ENGINE': 'django.db.backends.sqlite3',
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dev1hk311dal2m',
-        'USER': 'vvuilbygaoadys',
-        'PASSWORD': 'bbd0171ceb15e1485cda534d1e7cc8f6b7d40c500755a340d163ac01cd7d0856',
-        'HOST': 'ec2-99-80-170-190.eu-west-1.compute.amazonaws.com',
-        'PORT': '5432',
-    }
-}
 
 
 
@@ -149,7 +138,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = '587'
 EMAIL_HOST_USER = 'info@hydrauleak.com'
-EMAIL_HOST_PASSWORD = "leaklcixmyacsomrffch"
+EMAIL_HOST_PASSWORD = ""
 EMAIL_USE_TLS = True
 
 

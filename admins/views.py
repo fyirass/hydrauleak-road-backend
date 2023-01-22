@@ -10,6 +10,6 @@ class AdminViewSet(viewsets.ModelViewSet):
     if User.is_admin:    
         queryset = Admin.objects.all()
         serializer_class = AdminSerializer
-        # permission_classes = [IsAuthenticatedOrReadOnly]
+        permission_classes = [IsAuthenticated, IsAdminUser]
     else:
         Response({"error":"is not an admin"}, status=status.HTTP_405_METHOD_NOT_ALLOWED)

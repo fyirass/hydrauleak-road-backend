@@ -3,6 +3,7 @@ from datetime import datetime
 from leakers.models import Leaker
 from clients.models import Client
 from django.contrib.postgres.fields import ArrayField
+from django.core.validators import FileExtensionValidator
 
 class Report(models.Model):
     
@@ -16,6 +17,8 @@ class Report(models.Model):
     add_mark_coordinates = ArrayField(models.FloatField(),size=2)
     add_pipe_coordinates = ArrayField(models.FloatField(),size=2)
     add_pipe_access_coordinates = ArrayField(models.FloatField(),size=2)
+    
+    image = models.ImageField(upload_to='report_image', blank=True)
     
     report_date = models.DateTimeField(default=datetime.now, blank=True)
 

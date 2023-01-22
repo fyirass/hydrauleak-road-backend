@@ -10,6 +10,6 @@ class LeakerViewSet(viewsets.ModelViewSet):
     if User.is_leaker:    
         queryset = Leaker.objects.all()
         serializer_class = LeakerSerializer
-        # permission_classes = [IsAuthenticatedOrReadOnly]
+        permission_classes = [IsAuthenticated]
     else:
         Response({"error":"is not a leaker"}, status=status.HTTP_405_METHOD_NOT_ALLOWED)

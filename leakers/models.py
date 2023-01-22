@@ -2,6 +2,7 @@ from django.db import models
 from datetime import datetime
 from user.models import User
 from django.contrib.postgres.fields import ArrayField
+from django.core.validators import FileExtensionValidator
 
    
 class Leaker(models.Model):
