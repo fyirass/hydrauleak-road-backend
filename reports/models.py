@@ -1,11 +1,22 @@
 from django.db import models
 from datetime import datetime
+from leakers.models import Leaker
+from clients.models import Client
+from django.contrib.postgres.fields import ArrayField
 
 class Report(models.Model):
-    name = models.CharField(max_length=200)
-    email = models.CharField(max_length=100)
+    
+    
+    leaker = models.ForeignKey(Leaker, on_delete=models.CASCADE, blank=True, null=True)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, blank=True, null=True)
     subject = models.CharField(max_length=100)
     message = models.TextField(blank=True)
+    
+    add_sensor_coordinates = ArrayField(models.FloatField(),size=2)
+    add_mark_coordinates = ArrayField(models.FloatField(),size=2)
+    add_pipe_coordinates = ArrayField(models.FloatField(),size=2)
+    add_pipe_access_coordinates = ArrayField(models.FloatField(),size=2)
+    
     report_date = models.DateTimeField(default=datetime.now, blank=True)
 
     def __str__(self):

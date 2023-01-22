@@ -1,14 +1,19 @@
 from django.db import models
 from datetime import datetime
+from user.models import User
+from django.contrib.postgres.fields import ArrayField
 
+   
 class Leaker(models.Model):
-    name = models.CharField(max_length=50)
-    photo = models.ImageField(upload_to='photos/%Y/%m/%d/')
+    
+    user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True)
+    photo = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
     description = models.TextField(blank=True)
-    phone = models.CharField(max_length=20)
-    email = models.CharField(max_length=100)
-    address = models.CharField(max_length=100)
-    date_intervention = models.DateTimeField(default=datetime.now, blank=True)
-
-    def __str__(self):
-        return self.name
+    address = models.CharField(max_length=100,blank=True)
+    inscription_date = models.DateTimeField(default=datetime.now, blank=True)
+    status = models.CharField(max_length=20,choices=[('Active', 'active'), ('InBreak', 'in break'), ('NotWorking', 'not working')], default='not working')
+    
+   
+    def __str__(self): 
+        return (self.user.name)      
+    

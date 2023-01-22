@@ -1,15 +1,15 @@
 from rest_framework import viewsets
-from .models import Leaker
+from .models import Admin
 from user.models import User
-from .serializers import LeakerSerializer
+from .serializers import AdminSerializer
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework import status, permissions
 
-class LeakerViewSet(viewsets.ModelViewSet):
-    if User.is_leaker:    
-        queryset = Leaker.objects.all()
-        serializer_class = LeakerSerializer
+class AdminViewSet(viewsets.ModelViewSet):
+    if User.is_admin:    
+        queryset = Admin.objects.all()
+        serializer_class = AdminSerializer
         # permission_classes = [IsAuthenticatedOrReadOnly]
     else:
-        Response({"error":"is not a leaker"}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        Response({"error":"is not an admin"}, status=status.HTTP_405_METHOD_NOT_ALLOWED)

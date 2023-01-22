@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class ListingConfig(AppConfig):
+class AdminsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'listing'
+    name = 'admins'

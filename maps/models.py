@@ -29,13 +29,13 @@ class Sensor(models.Model):
     id = models.AutoField(primary_key=True)
     map = models.ForeignKey(Map, on_delete=models.SET_NULL, null=True, blank=True)
     sensor_coordinates = ArrayField(models.FloatField(),size=2)
-    sensor_creationdate = models.DateTimeField(default=datetime.now)
+    sensor_creation_date = models.DateTimeField(default=datetime.now)
     sensor_photo = models.ImageField(upload_to='sensor', blank=True)
     sensor_type = models.CharField(max_length=50)
     sensor_title = models.CharField(max_length=100)
     sensor_description = models.TextField()
-    sensor_frequency = ArrayField(ArrayField(models.FloatField(),size=2), blank=True)
-    sensor_Indication = models.CharField(max_length=20,choices=[('critical', 'Critical'), ('notable', 'Notable'), ('good', 'Good'),('unknown', 'Unknown'), ('empty', 'Empty')])
+    sensor_frequency = ArrayField(ArrayField(models.FloatField()), blank=True,size=2)
+    sensor_Indication = models.CharField(max_length=20,choices=[('critical', 'Critical'), ('notable', 'Notable'), ('good', 'Good'),('unknown', 'Unknown'), ('empty', 'Empty')], default='unknown')
 
     def __str__(self):
         return self.sensor_title
@@ -45,27 +45,28 @@ class LeakerVehicle(models.Model):
     id = models.AutoField(primary_key=True)
     map = models.ForeignKey(Map, on_delete=models.SET_NULL, null=True, blank=True)
     leaker = models.OneToOneField(Leaker, on_delete=models.CASCADE)
-    leakervehicle_title = models.CharField(max_length=100)
-    leakervehicle_description = models.TextField()
+    leaker_coordinates = ArrayField(models.FloatField(), size=2)
+    leaker_vehicle_title = models.CharField(max_length=100)
+    leaker_vehicle_description = models.TextField()
 
     def __str__(self):
-        return self.leakervehicle_title
+        return self.leaker_vehicle_title
     
 class PipeAcces(models.Model):
     id = models.AutoField(primary_key=True)
     pipe = models.ForeignKey('Pipe',related_name='pipe_accesses', on_delete=models.CASCADE)
-    pipe_acces_coordinates = ArrayField(models.FloatField(),size=2)
-    pipe_acces_title = models.CharField(max_length=100)
-    pipe_acces_description = models.TextField()
-    pipe_acces_type = models.CharField(max_length=20,choices=[('HouseValve', 'House Valve'), ('FirePole', 'Fire Pole'), ('FireHydrantValve', 'Fire Hydrant Valve'), ('Other', 'Other')])
+    pipe_access_coordinates = ArrayField(models.FloatField(),size=2)
+    pipe_access_title = models.CharField(max_length=100)
+    pipe_access_description = models.TextField()
+    pipe_access_type = models.CharField(max_length=20,choices=[('HouseValve', 'House Valve'), ('FirePole', 'Fire Pole'), ('FireHydrantValve', 'Fire Hydrant Valve'), ('Other', 'Other')], default='other')
 
     def __str__(self):
-        return self.pipe_acces_title
+        return self.pipe_access_title
 
 class Mark(models.Model):
     id = models.AutoField(primary_key=True)
     pipe = models.ForeignKey('Pipe',related_name='pipe_marks', on_delete=models.CASCADE)
-    mark_points = ArrayField(models.FloatField(),size=2)
+    mark_coordinates = ArrayField(models.FloatField(),size=2)
     mark_creation_date = models.DateTimeField(default=datetime.now)
     mark_photo = models.ImageField(upload_to='marks', blank=True)
     mark_description = models.TextField()
@@ -77,19 +78,19 @@ class Pipe(models.Model):
     
     id = models.AutoField(primary_key=True)
     map = models.ForeignKey(Map, on_delete=models.SET_NULL, null=True, blank=True)
-    pipe_status = models.CharField(max_length=20,choices=[('good', 'Good'), ('unknown', 'Unknown'), ('critical', 'Critical')])
+    pipe_status = models.CharField(max_length=20,choices=[('good', 'Good'), ('unknown', 'Unknown'), ('critical', 'Critical')], default='unknown')
     pipe_description = models.TextField()
     pipe_creation_date = models.DateTimeField(default=datetime.now)
     pipe_type = models.CharField(max_length=50)
     pipe_title = models.CharField(max_length=100)
     pipe_length = models.FloatField()
     pipe_material = models.CharField(max_length=50)
-    pipe_diametre = models.FloatField()
-    pipe_acces_number = models.IntegerField(default=0)
-    pipe_mark_number = models.IntegerField(default=0)
+    pipe_diameter = models.FloatField()
+    pipe_access_number = models.IntegerField(default=0, blank=True)
+    pipe_mark_number = models.IntegerField(default=0, blank=True)
 
     def save(self, *args, **kwargs):
-        self.pipe_acces_number = self.pipe_accesses.count()
+        self.pipe_access_number = self.pipe_accesses.count()
         self.pipe_mark_number = self.pipe_marks.count()
         super(Pipe, self).save(*args, **kwargs)
 

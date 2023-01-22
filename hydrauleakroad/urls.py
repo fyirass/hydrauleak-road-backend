@@ -18,12 +18,13 @@ urlpatterns = [
     
     path('api/', include('leakers.urls')),
     path('api/', include('clients.urls')),
+    path('api/', include('admins.urls')),
     path('api/', include('contracts.urls')),
+    path('api/', include('interventions.urls')),
     path('api/', include('maps.urls')),
+    path('api/', include('reports.urls')),
+
     
-    path('api/interventions/', include('interventions.urls')),
-    path('api/listing/', include('listing.urls')),
-    path('api/reports/', include('reports.urls')),
     
     # path('auth/', include('djoser.urls')),
     # path('auth/', include('djoser.urls.jwt')),

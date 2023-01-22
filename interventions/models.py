@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.timezone import now
-from clients.models import Client
+from contracts.models import Contract
 
 class Intervention(models.Model):
     
@@ -16,8 +16,7 @@ class Intervention(models.Model):
         PENDING = 'Pending'
         COMPLETED = 'Completed'
 
-    # client = models.ForeignKey(Client, on_delete=models.DO_NOTHING)
-    slug = models.SlugField(unique=True)
+    contract = models.ForeignKey(Contract, on_delete=models.DO_NOTHING)
     intervention_title = models.CharField(max_length=150)
     intervention_description = models.TextField(blank=True)
     
