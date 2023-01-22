@@ -4,7 +4,7 @@ from .serializers import ReportSerializer
 from django.core.mail import send_mail
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from admins.models import Admin
+from user.models import User
 
 
 class ReportViewSet(viewsets.ModelViewSet):
@@ -24,16 +24,24 @@ class ReportViewSet(viewsets.ModelViewSet):
         add_pipe_coordinates = self.request.data.get('add_pipe_coordinates')
         add_pipe_access_coordinates = self.request.data.get('add_pipe_access_coordinates')
         report_date = self.request.data.get('report_date')
-        admin_email = Admin.objects.first().email
+        
+        
+        try:
+            admin = User.objects.filter(is_admin=True).first()
+            admin_email = admin.email
+        except User.DoesNotExist:
+            admin_email = None
+        
+        
         message += '\n\nAdditional sensor coordinates: ' + str(add_sensor_coordinates)
         message += '\n\nAdditional mark coordinates: ' + str(add_mark_coordinates)
         message += '\n\nAdditional pipe coordinates: ' + str(add_pipe_coordinates)
         message += '\nAdditional pipe access coordinates: ' + str(add_pipe_access_coordinates)
         message += '\n\nReport date: ' + str(report_date)
         if self.request.user.is_client:
-            send_mail(subject, message, self.request.user.client.email, [admin_email])
+            send_mail(subject, message, self.request.user.client.user.email, [admin_email])
         elif self.request.user.is_leaker:
-            send_mail(subject, message, self.request.user.leaker.email, [admin_email])
+            send_mail(subject, message, self.request.user.leaker.user.email, [admin_email])
 
     # def perform_create(self, serializer):
     #     serializer.save()
