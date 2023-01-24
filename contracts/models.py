@@ -31,7 +31,7 @@ class Contract(models.Model):
     state = models.CharField(max_length=100)
     zipcode = models.CharField(max_length=15)
     
-    is_published = models.BooleanField(default=True)
+    is_published = models.BooleanField()
     
 
     def __str__(self):
