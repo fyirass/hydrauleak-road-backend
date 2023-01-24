@@ -31,7 +31,7 @@ class SignupSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('name', 'email', 'phone', 'password', 're_password', 'roles')
-        extra_kwargs = {'password': {'write_only': True}}
+        extra_kwargs = {'password': {'write_only': True}, 'is_active': {'default': True}}
 
     def create(self, validated_data):
         del validated_data["re_password"]
