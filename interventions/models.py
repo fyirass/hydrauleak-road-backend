@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.timezone import now
 from contracts.models import Contract
+from maps.models import Zone
 
 class Intervention(models.Model):
     
@@ -17,6 +18,7 @@ class Intervention(models.Model):
         COMPLETED = 'Completed'
 
     contract = models.ForeignKey(Contract, on_delete=models.DO_NOTHING)
+    zone = models.OneToOneField(Zone, on_delete=models.CASCADE, blank=True, null=True)
     intervention_title = models.CharField(max_length=150)
     intervention_description = models.TextField(blank=True)
     

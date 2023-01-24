@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.timezone import now
 from clients.models import Client
+from maps.models import Zone
 
 class Contract(models.Model):
     
@@ -16,6 +17,7 @@ class Contract(models.Model):
 
     
     client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name='contracts')
+    zone = models.OneToOneField(Zone, on_delete=models.CASCADE, blank=True, null=True)
     contract_title = models.CharField(max_length=150)
     contract_description = models.TextField(blank=True)
     contract_type = models.CharField(max_length=50, choices=ContractType.choices, default=ContractType.SIMPLE)

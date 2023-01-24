@@ -27,13 +27,14 @@ class Zone(models.Model):
 class Sensor(models.Model):
     
     id = models.AutoField(primary_key=True)
-    map = models.ForeignKey(Map, on_delete=models.SET_NULL, null=True, blank=True)
+    pipe = models.ForeignKey('Pipe',related_name='pipe_sensors', on_delete=models.CASCADE, null=True, blank=True)
     sensor_coordinates = ArrayField(models.FloatField(),size=2)
     sensor_creation_date = models.DateTimeField(default=datetime.now)
     sensor_photo = models.ImageField(upload_to='sensor', blank=True)
     sensor_type = models.CharField(max_length=50)
     sensor_title = models.CharField(max_length=100)
     sensor_description = models.TextField()
+    sensor_diameter_range = models.FloatField(default=0)
     sensor_frequency = ArrayField(ArrayField(models.FloatField()), blank=True,size=2)
     sensor_Indication = models.CharField(max_length=20,choices=[('critical', 'Critical'), ('notable', 'Notable'), ('good', 'Good'),('unknown', 'Unknown'), ('empty', 'Empty')], default='unknown')
 

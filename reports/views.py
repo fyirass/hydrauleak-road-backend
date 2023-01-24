@@ -29,7 +29,7 @@ class ReportViewSet(viewsets.ModelViewSet):
         
         
         try:
-            admin = User.objects.filter(is_admin=True).first()
+            admin = User.objects.filter(roles="is_admin").first()
             admin_email = admin.email
         except User.DoesNotExist:
             admin_email = None
@@ -47,9 +47,9 @@ class ReportViewSet(viewsets.ModelViewSet):
         #     image = MIMEImage(img_data, name=image.name)
                     # .attach(image)
             
-        if self.request.user.is_client:
+        if self.request.user.roles =="is_client":
             message ='Message from client: '+ message
             send_mail(subject, message, self.request.user.client.user.email, [admin_email])
-        elif self.request.user.is_leaker:
+        elif self.request.user.roles== "is_leaker":
             message ='Message from Leaker: '+ message
             send_mail(subject, message, self.request.user.leaker.user.email, [admin_email])

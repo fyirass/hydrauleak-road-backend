@@ -26,28 +26,29 @@ from .models import User
     
     
 class SignupSerializer(serializers.ModelSerializer):
-    re_password = serializers.CharField(write_only=True)
+    re_password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
+
     class Meta:
         model = User
-        fields = ['username', 'email', 'phone', 'password', 're_password']
+        fields = ('name', 'email', 'phone', 'password', 're_password', 'roles')
         extra_kwargs = {'password': {'write_only': True}}
+
+    def create(self, validated_data):
+        del validated_data["re_password"]
+        user = User.objects.create_user(**validated_data)
+        return user
     
     def validate(self, data):
-        # check if passwords match
         if data['password'] != data['re_password']:
-            raise serializers.ValidationError("Passwords don't match")
+            raise serializers.ValidationError("Passwords must match.")
         return data
-    
-    def save(self):
-        user = User.objects.create_user(
-            self.validated_data['username'],
-            self.validated_data['email'],
-            self.validated_data['phone'],
-            self.validated_data['password'],
-        )
-        return user
 
 class UserSerializer(serializers.ModelSerializer):
+    roles = serializers.CharField(read_only=True)
     class Meta:
-        model = get_user_model()
-        fields = ('name', 'email', 'phone', 'is_admin', 'is_leaker', 'is_client')
+        model = User
+        fields = ('id', 'name', 'email', 'phone', 'roles')
+
+class PasswordSerializer(serializers.Serializer):
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)

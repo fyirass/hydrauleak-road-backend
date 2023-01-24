@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from datetime import datetime
+
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         # Creates and saves a User with the given email and password
@@ -14,7 +15,7 @@ class UserManager(BaseUserManager):
     def create_superuser(self, email, password):
         # Creates and saves a superuser with the given email and password
         user = self.create_user(email, password)
-        user.is_admin = True
+        user.roles = "is_admin"
         user.save(using=self._db)
         return user
 
@@ -23,13 +24,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
     phone = models.CharField(max_length=20, blank=True)
     is_active = models.BooleanField(default=True)
-    is_admin = models.BooleanField(default=False)
-    is_leaker = models.BooleanField(default=False)
-    is_client = models.BooleanField(default=False)
+    roles = models.CharField(max_length=255, default="", choices=(("is_admin", "is_admin"), ("is_leaker", "is_leaker"), ("is_client", "is_client")))
     date_joined = models.DateTimeField(auto_now_add=True)
     objects = UserManager()
     USERNAME_FIELD = 'email'
-
     def __str__(self):
         return self.email
 
@@ -44,4 +42,4 @@ class User(AbstractBaseUser, PermissionsMixin):
     @property
     def is_staff(self):
         # Is the user a member of staff?
-        return self.is_admin
+        return self.roles == "is_admin"

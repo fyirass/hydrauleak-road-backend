@@ -7,9 +7,14 @@ from rest_framework.response import Response
 from rest_framework import status, permissions
 
 class AdminViewSet(viewsets.ModelViewSet):
-    if User.is_admin:    
-        queryset = Admin.objects.all()
-        serializer_class = AdminSerializer
-        permission_classes = [IsAuthenticated, IsAdminUser]
-    else:
-        Response({"error":"is not an admin"}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    def has_permission(self, request, view):
+        
+        if request.user.is_authenticated and request.user.roles=="is_admin":
+            return permissions.IsAuthenticated
+        return IsAdminUser
+      
+    queryset = Admin.objects.all()
+    serializer_class = AdminSerializer
+    permission_classes = [has_permission]
+
+        

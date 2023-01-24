@@ -2,69 +2,65 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import permissions
-from .serializers import UserSerializer
+from .serializers import SignupSerializer, UserSerializer, PasswordSerializer
 from .permissions import IsAdminUser
-
+from rest_framework import viewsets, permissions, authentication
 from django.contrib.auth import get_user_model
 User = get_user_model()
+from rest_framework.decorators import action
 
-class SignupView(APIView):
-    permission_classes = (permissions.AllowAny, )
-    def post(self, request):
-        try:
-            data = request.data
-            
-            phone = data['phone']
-            name = data['name']
-            email = data['email']
-            
-            email = email.lower()
-            password = data['password']
-            re_password = data['re_password']
-            
 
-            if password == re_password:
-                if len(password) >= 6:
-                    if not User.objects.filter(email=email).exists():
-                        
-                        User.objects.create_user(name=name, email=email, password=password, phone=phone)
+class SignupViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = SignupSerializer
+    permission_classes = [permissions.AllowAny] # allow anyone to signup
+    authentication_classes = [authentication.TokenAuthentication]
+    
+    def get_queryset(self):
+        return User.objects.none() # don't allow any other actions except create
 
-                        return Response({
-                                'user_id': User.objects.get(email=email).id,
-                                'name': User.objects.get(email=email).name,
-                                'email': User.objects.get(email=email).email,
-                                'phone': User.objects.get(email=email).phone,
-                                'is_admin': User.objects.get(email=email).is_admin,
-                                'is_leaker': User.objects.get(email=email).is_leaker,
-                                'is_client': User.objects.get(email=email).is_client
-                            }, status=status.HTTP_201_CREATED)
-                        
-                        
-                    
-                    else:
-                        return Response(
-                            {'error': 'User with this email already exists'},
-                            status=status.HTTP_400_BAD_REQUEST
-                        )
-                else:
-                    return Response(
-                        {'error': 'Password must be at least 8 characters in length'},
-                        status=status.HTTP_400_BAD_REQUEST
-                    )
-            else:
-                return Response(
-                    {'error': 'Passwords do not match'},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
-        except:
-            return Response(
-                {'error': 'Something went wrong when registering an account'},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)     
+         
 
-            
+class UserView(viewsets.ViewSet):
+    queryset = User.objects.all()
+    permission_classes = (permissions.IsAuthenticated,)
 
-class UserView(APIView):
-    def get(self, request):
-        serializer = UserSerializer(request.user)
-        return Response(serializer.data)
+    def list(self, request):
+        user = request.user
+        serialized_user = UserSerializer(user).data
+        return Response(serialized_user)
+    
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = UserSerializer
+
+    @action(detail=False, methods=['PUT'])
+    def edit_profile(self, request):
+        user = request.user
+        serializer = self.get_serializer(user, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=False, methods=['Post'])
+    def change_password(self, request):
+        user = request.user
+        serializer = PasswordSerializer(data=request.data)
+        if serializer.is_valid():
+            if not user.check_password(serializer.data.get('old_password')):
+                return Response({"old_password": ["Wrong password."]}, status=status.HTTP_400_BAD_REQUEST)
+            user.set_password(serializer.data.get('new_password'))
+            user.save()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        
