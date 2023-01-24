@@ -53,7 +53,7 @@ class ContractDetail(APIView):
   
     def get(self, request, pk):
         
-        if request.user.roles == "is_leaker":
+        if request.user.roles=="is_leaker" or request.user.roles=="is_admin":
             contract = self.get_object(pk)
             serializer = ContractSerializer(contract)
             return Response(serializer.data)
