@@ -16,7 +16,7 @@ class Contract(models.Model):
         COMPLETED = 'Completed'
 
     
-    client = models.ForeignKey(Client, on_delete=models.SET_NULL , related_name='contracts', null=True)
+    client = models.ForeignKey(Client, on_delete=models.SET_NULL , related_name='contracts', null=True, blank=True)
     zone = models.OneToOneField(Zone, on_delete=models.CASCADE, blank=True, null=True)
     contract_title = models.CharField(max_length=150)
     contract_description = models.TextField(blank=True)
