@@ -48,6 +48,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'name', 'email', 'phone', 'roles')
+        extra_kwargs = {'password': {'write_only': True}, 'is_active': {'default': True}}
 
 class PasswordSerializer(serializers.Serializer):
     old_password = serializers.CharField(required=True)

@@ -7,6 +7,7 @@ from rest_framework import viewsets, permissions, authentication
 from django.contrib.auth import get_user_model
 User = get_user_model()
 from rest_framework.decorators import action
+from .permissions import SignupPermission
 
 
 class SignupViewSet(viewsets.ModelViewSet):
@@ -39,8 +40,18 @@ class UserView(viewsets.ViewSet):
     
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = [SignupPermission]
     serializer_class = UserSerializer
+
+    @action(detail=False, methods=['POST'])
+    def signup(self, request):
+        serializer = SignupSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        user.is_active = True
+        user.save()
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     @action(detail=False, methods=['PUT'])
     def edit_profile(self, request):
@@ -63,5 +74,3 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response(status=status.HTTP_204_NO_CONTENT)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-        
