@@ -1,5 +1,6 @@
-from rest_framework import permissions
+from rest_framework.permissions import BasePermission
 
-class IsAdminUser(permissions.BasePermission):
+class IsAllowedToSignup(BasePermission):
     def has_permission(self, request, view):
-        return request.user and request.user.is_admin
+        # check if the user is allowed to signup
+        return request.user.is_authenticated and request.user.is_active
