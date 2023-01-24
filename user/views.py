@@ -3,7 +3,6 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import permissions
 from .serializers import SignupSerializer, UserSerializer, PasswordSerializer
-from .permissions import IsAdminUser
 from rest_framework import viewsets, permissions, authentication
 from django.contrib.auth import get_user_model
 User = get_user_model()
