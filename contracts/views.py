@@ -73,7 +73,7 @@ class ContractDetail(APIView):
         
     
     def delete(self, request, pk):
-        if request.user.roles.is_admin:    
+        if request.user.roles== "is_admin":    
             contract = self.get_object(pk)
             contract.delete()
             return Response({"success", "Contract deleted successfully"},status=status.HTTP_204_NO_CONTENT)
