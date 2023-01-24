@@ -14,7 +14,7 @@ class SignupViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = SignupSerializer
     permission_classes = [permissions.AllowAny] # allow anyone to signup
-    authentication_classes = [authentication.TokenAuthentication]
+    
     
     def get_queryset(self):
         return User.objects.none() # don't allow any other actions except create
