@@ -26,7 +26,7 @@ class ContractList(APIView):
     
     permission_classes = [permissions.IsAuthenticated]
     def get(self, request):
-        if request.user.roles=="is_leaker":
+        if request.user.roles=="is_leaker" and request.user.roles=="is_admin":
             contracts = Contract.objects.all()
             serializer = ContractSerializer(contracts, many=True)
             return Response(serializer.data)
