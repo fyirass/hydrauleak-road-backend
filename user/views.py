@@ -19,7 +19,7 @@ class SignupViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return User.objects.none() # don't allow any other actions except create
     
-    @action(detail=False, methods=['Post'])
+    
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
