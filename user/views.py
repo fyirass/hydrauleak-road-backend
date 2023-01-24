@@ -8,12 +8,13 @@ from rest_framework import viewsets, permissions, authentication
 from django.contrib.auth import get_user_model
 User = get_user_model()
 from rest_framework.decorators import action
-from .permissions import IsAllowedToSignup
+
 
 class SignupViewSet(viewsets.ModelViewSet):
+    permission_classes = [permissions.AllowAny]
     queryset = User.objects.all()
     serializer_class = SignupSerializer
-    permission_classes = [IsAllowedToSignup]
+    
 
     def get_queryset(self):
         return User.objects.all() 
