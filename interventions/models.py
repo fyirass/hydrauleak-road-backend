@@ -16,6 +16,11 @@ class Intervention(models.Model):
         NOTSTART = 'NotStart'
         PENDING = 'Pending'
         COMPLETED = 'Completed'
+        
+    class InterventionPublished(models.TextChoices):
+        IS_PUBLISHED = 'is_published'
+        IS_NOT_PUBLISHED = 'iq_not_published'
+        
 
     contract = models.ForeignKey(Contract, on_delete=models.DO_NOTHING)
     zone = models.OneToOneField(Zone, on_delete=models.CASCADE, blank=True, null=True)
@@ -34,7 +39,7 @@ class Intervention(models.Model):
     state = models.CharField(max_length=100)
     zipcode = models.CharField(max_length=15)
     
-    is_published = models.BooleanField(default=True)
+    is_published = models.CharField(max_length=50, choices=InterventionPublished.choices, default=InterventionPublished.IS_NOT_PUBLISHED)
     
 
     def __str__(self):

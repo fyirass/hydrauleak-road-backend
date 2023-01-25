@@ -23,11 +23,9 @@ class Contract(models.Model):
         CLARIFY_LEAK_LOCATION = 'Clarifying the location of the leak'
         SOLVE_HIGH_CONSUMPTION = 'Solve high consumption problem but the leak is not identified'
 
-        
-
-        
-
-
+    class InterventionPublished(models.TextChoices):
+        IS_PUBLISHED = 'is_published'
+        IS_NOT_PUBLISHED = 'iq_not_published'    
     
     client = models.ForeignKey(Client, on_delete=models.SET_NULL , related_name='contracts', null=True, blank=True)
     zone = models.OneToOneField(Zone, on_delete=models.CASCADE, blank=True, null=True)
@@ -45,7 +43,7 @@ class Contract(models.Model):
     state = models.CharField(max_length=100, blank=True)
     zipcode = models.CharField(max_length=15, blank=True)
     
-    is_published = models.BooleanField(blank=True)
+    is_published = models.CharField(max_length=50, choices=InterventionPublished.choices, default=InterventionPublished.IS_NOT_PUBLISHED)
     
 
     def __str__(self):
