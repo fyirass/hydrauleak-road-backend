@@ -14,6 +14,19 @@ class Contract(models.Model):
         NOTSTART = 'NotStart'
         PENDING = 'Pending'
         COMPLETED = 'Completed'
+        
+    from django.db import models
+
+    class ContractWorkType(models.TextChoices):
+        FIRE_HYDRANT_INSPECTION = 'Fire Hydrant Inspection'
+        ALL_CITY_INSPECTIONS = 'All City Inspections'
+        CLARIFY_LEAK_LOCATION = 'Clarifying the location of the leak'
+        SOLVE_HIGH_CONSUMPTION = 'Solve high consumption problem but the leak is not identified'
+
+        
+
+        
+
 
     
     client = models.ForeignKey(Client, on_delete=models.SET_NULL , related_name='contracts', null=True, blank=True)
@@ -23,8 +36,9 @@ class Contract(models.Model):
     contract_type = models.CharField(max_length=50, choices=ContractType.choices, default=ContractType.SIMPLE)
     contract_status = models.CharField(max_length=50, choices=ContractStatus.choices, default=ContractStatus.NOTSTART)
     
+    contract_work_type = models.CharField(max_length=200, choices=ContractWorkType.choices, default=ContractWorkType.FIRE_HYDRANT_INSPECTION,)
      
-    contract_date = models.DateTimeField(default=now, blank=True)
+    contract_date = models.DateField(default=now, blank=True)
     
     address = models.CharField(max_length=150)
     city = models.CharField(max_length=100)
