@@ -19,7 +19,7 @@ class Intervention(models.Model):
         
     class InterventionPublished(models.TextChoices):
         IS_PUBLISHED = 'is_published'
-        IS_NOT_PUBLISHED = 'iq_not_published'
+        IS_NOT_PUBLISHED = 'is_not_published'
         
 
     contract = models.ForeignKey(Contract, on_delete=models.DO_NOTHING)

@@ -25,7 +25,7 @@ class Contract(models.Model):
 
     class InterventionPublished(models.TextChoices):
         IS_PUBLISHED = 'is_published'
-        IS_NOT_PUBLISHED = 'iq_not_published'    
+        IS_NOT_PUBLISHED = 'is_not_published'    
     
     client = models.ForeignKey(Client, on_delete=models.SET_NULL , related_name='contracts', null=True, blank=True)
     zone = models.OneToOneField(Zone, on_delete=models.CASCADE, blank=True, null=True)
