@@ -8,7 +8,7 @@ from rest_framework import status, permissions
 class LeakerViewSet(viewsets.ModelViewSet):
     def has_permission(self, request, view):
         
-        if request.user.is_authenticated and request.user.roles=="is_leaker" and request.user.roles=="is_admin":
+        if request.user.is_authenticated and request.user.roles=="is_leaker" or request.user.roles=="is_admin":
             return permissions.IsAuthenticated
         return IsAdminUser    
     queryset = Leaker.objects.all()
