@@ -12,7 +12,7 @@ class LeakerSerializer(serializers.ModelSerializer):
     user = UserSerializer()
     class Meta:
         model = Leaker
-        fields = ('user', 'photo', 'description', 'address', 'inscription_date', 'status')
+        fields = ('user', 'id', 'photo', 'description', 'address', 'inscription_date', 'status')
         
         
   
