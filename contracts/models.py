@@ -31,21 +31,21 @@ class Contract(models.Model):
     
     client = models.ForeignKey(Client, on_delete=models.SET_NULL , related_name='contracts', null=True, blank=True)
     zone = models.OneToOneField(Zone, on_delete=models.CASCADE, blank=True, null=True)
-    contract_title = models.CharField(max_length=150)
+    contract_title = models.CharField(max_length=150, blank=True)
     contract_description = models.TextField(blank=True)
-    contract_type = models.CharField(max_length=50, choices=ContractType.choices, default=ContractType.SIMPLE)
-    contract_status = models.CharField(max_length=50, choices=ContractStatus.choices, default=ContractStatus.NOTSTART)
+    contract_type = models.CharField(max_length=50, choices=ContractType.choices, default=ContractType.SIMPLE, blank=True)
+    contract_status = models.CharField(max_length=50, choices=ContractStatus.choices, default=ContractStatus.NOTSTART, blank=True)
     
-    contract_work_type = models.CharField(max_length=200, choices=ContractWorkType.choices, default=ContractWorkType.FIRE_HYDRANT_INSPECTION,)
+    contract_work_type = models.CharField(max_length=200, choices=ContractWorkType.choices, default=ContractWorkType.FIRE_HYDRANT_INSPECTION, blank=True)
      
     contract_date = models.DateField(default=now, blank=True)
     
-    address = models.CharField(max_length=150)
-    city = models.CharField(max_length=100)
-    state = models.CharField(max_length=100)
-    zipcode = models.CharField(max_length=15)
+    address = models.CharField(max_length=150, blank=True)
+    city = models.CharField(max_length=100, blank=True)
+    state = models.CharField(max_length=100, blank=True)
+    zipcode = models.CharField(max_length=15, blank=True)
     
-    is_published = models.BooleanField()
+    is_published = models.BooleanField(blank=True)
     
 
     def __str__(self):
