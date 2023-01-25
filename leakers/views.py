@@ -5,6 +5,8 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser, IsAuthentic
 from rest_framework.response import Response
 from rest_framework import status, permissions
 
+
+
 class LeakerViewSet(viewsets.ModelViewSet):
       
     queryset = Leaker.objects.all()
