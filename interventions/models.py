@@ -18,8 +18,8 @@ class Intervention(models.Model):
         COMPLETED = 'Completed'
         
     class InterventionPublished(models.TextChoices):
-        IS_PUBLISHED = 'is_published'
-        IS_NOT_PUBLISHED = 'is_not_published'
+        IS_PUBLISHED = 'Published'
+        IS_NOT_PUBLISHED = 'Not Published'
         
 
     contract = models.ForeignKey(Contract, on_delete=models.DO_NOTHING)

@@ -24,8 +24,8 @@ class Contract(models.Model):
         SOLVE_HIGH_CONSUMPTION = 'Solve high consumption problem but the leak is not identified'
 
     class InterventionPublished(models.TextChoices):
-        IS_PUBLISHED = 'is_published'
-        IS_NOT_PUBLISHED = 'is_not_published'    
+        IS_PUBLISHED = 'Published'
+        IS_NOT_PUBLISHED = 'Not Published'    
     
     client = models.ForeignKey(Client, on_delete=models.SET_NULL , related_name='contracts', null=True, blank=True)
     zone = models.OneToOneField(Zone, on_delete=models.CASCADE, blank=True, null=True)
