@@ -7,5 +7,5 @@ class ContractSerializer(serializers.ModelSerializer):
     client = ClientSerializer()
     class Meta:
         model = Contract
-        fields = ('client', 'zone', 'contract_title', 'contract_description', 'contract_type',
+        fields = ('client','id', 'zone', 'contract_title', 'contract_description', 'contract_type',
                     'contract_status', 'contract_work_type', 'contract_date', 'address', 'city', 'state', 'zipcode', 'is_published')
