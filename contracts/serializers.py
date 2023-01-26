@@ -4,8 +4,13 @@ from user.models import User
 from clients.serializers import ClientSerializer
 
 class ContractSerializer(serializers.ModelSerializer):
-    client_detail = ClientSerializer(read_only=True)
+    client = ClientSerializer(read_only=True)
     class Meta:
         model = Contract
-        fields = ('client_detail','client','id', 'zone', 'contract_title', 'contract_description', 'contract_type',
+        fields = ('client','id', 'zone', 'contract_title', 'contract_description', 'contract_type',
                     'contract_status', 'contract_work_type', 'contract_date', 'address', 'city', 'state', 'zipcode', 'is_published')
+
+class ClientContractSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contract
+        fields = '__all__'
