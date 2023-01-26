@@ -13,3 +13,5 @@ class ClientSerializer(serializers.ModelSerializer):
         model = Client
         fields = ('user','id', 'photo', 'description',  'address',  'inscription_date', 'client_files')
         
+
+        
