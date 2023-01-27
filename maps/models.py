@@ -5,6 +5,7 @@ from leakers.models import Leaker
 
 class Map(models.Model):
     id = models.AutoField(primary_key=True)
+    map_coordinates = ArrayField(models.FloatField(),size=2)
     map_title = models.CharField(max_length=100)
     map_description = models.TextField()
     map_creation_date = models.DateTimeField(default=datetime.now)

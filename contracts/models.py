@@ -13,7 +13,7 @@ class Contract(models.Model):
     class ContractStatus(models.TextChoices):
         NOTSTART = 'NotStart'
         PENDING = 'Pending'
-        COMPLETED = 'Completed'
+        COMPLETED = 'expired'
         
     from django.db import models
 
@@ -37,6 +37,8 @@ class Contract(models.Model):
     contract_work_type = models.CharField(max_length=200, choices=ContractWorkType.choices, default=ContractWorkType.FIRE_HYDRANT_INSPECTION, blank=True)
      
     contract_date = models.DateField(default=now, blank=True)
+    contract_estimate_end_date = models.DateField(default=now, blank=True)
+
     
     address = models.CharField(max_length=150, blank=True)
     city = models.CharField(max_length=100, blank=True)
