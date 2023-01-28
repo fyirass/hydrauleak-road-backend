@@ -20,8 +20,10 @@ class Zone(models.Model):
     zone_num = models.IntegerField(default=0)
     zone_date = models.DateTimeField()
     zone_status = models.CharField(max_length=20,choices=[('notStart', 'Not Started'), ('Pending', 'Pending'), ('Completed', 'Completed')])
-    zone_coordinates = ArrayField(models.FloatField(),size=200, default=list)
-    
+    zone_coordinates = ArrayField(
+        ArrayField(models.float(max_length=255)), 
+        size=None, # size = None means it can be a dynamic array
+    )
     def __str__(self):
         return self.zone_status
          
@@ -82,6 +84,10 @@ class Pipe(models.Model):
     map = models.ForeignKey(Map, on_delete=models.SET_NULL, null=True, blank=True)
     pipe_status = models.CharField(max_length=20,choices=[('good', 'Good'), ('unknown', 'Unknown'), ('critical', 'Critical')], default='unknown')
     pipe_description = models.TextField()
+    pipe_coordinates = ArrayField(
+        ArrayField(models.FloatField(max_length=255)), 
+        size=None, # size = None means it can be a dynamic array
+    )
     pipe_creation_date = models.DateTimeField(default=datetime.now)
     pipe_type = models.CharField(max_length=50)
     pipe_title = models.CharField(max_length=100)
