@@ -21,7 +21,7 @@ class Zone(models.Model):
     zone_date = models.DateTimeField()
     zone_status = models.CharField(max_length=20,choices=[('notStart', 'Not Started'), ('Pending', 'Pending'), ('Completed', 'Completed')])
     zone_coordinates = ArrayField(
-        ArrayField(models.float(max_length=255)), 
+        ArrayField(models.FloatField(max_length=255)), 
         size=None, # size = None means it can be a dynamic array
     )
     def __str__(self):
