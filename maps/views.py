@@ -7,34 +7,41 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser, IsAuthentic
 class ZoneViewSet(viewsets.ModelViewSet):
     queryset = Zone.objects.all()
     serializer_class = ZoneSerializer
-    # permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    pagination_class = None
 
 class SensorViewSet(viewsets.ModelViewSet):
     queryset = Sensor.objects.all()
     serializer_class = SensorSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+    pagination_class = None
 
 class PipeViewSet(viewsets.ModelViewSet):
     queryset = Pipe.objects.all()
     serializer_class = PipeSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+    pagination_class = None
 
 class PipeAccesViewSet(viewsets.ModelViewSet):
     queryset = PipeAcces.objects.all()
     serializer_class = PipeAccesSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+    pagination_class = None
 
 class MarkViewSet(viewsets.ModelViewSet):
     queryset = Mark.objects.all()
     serializer_class = MarkSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+    pagination_class = None
 
 class LeakerVehicleViewSet(viewsets.ModelViewSet):
     queryset = LeakerVehicle.objects.all()
     serializer_class = LeakerVehicleSerializer
     permission_classes = [IsAuthenticated, IsAdminUser]
+    pagination_class = None
 
 class MapViewSet(viewsets.ModelViewSet):
     queryset = Map.objects.all()
     serializer_class = MapSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+    pagination_class = None
