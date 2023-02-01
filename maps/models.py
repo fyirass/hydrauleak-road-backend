@@ -20,6 +20,7 @@ class Zone(models.Model):
     zone_num = models.IntegerField(default=0)
     zone_date = models.DateTimeField()
     zone_status = models.CharField(max_length=20,choices=[('notStart', 'Not Started'), ('Pending', 'Pending'), ('Completed', 'Completed')])
+    zone_area = models.FloatField(default=0)
     zone_coordinates = ArrayField(
         ArrayField(models.FloatField(max_length=255)), 
         size=None, # size = None means it can be a dynamic array
