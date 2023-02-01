@@ -18,7 +18,7 @@ class Zone(models.Model):
     id = models.AutoField(primary_key=True)
     map = models.ForeignKey(Map, on_delete=models.SET_NULL, related_name="maps", null=True, blank=True)
     zone_num = models.IntegerField(default=0)
-    zone_date = models.DateTimeField()
+    zone_date = models.DateTimeField(default=datetime.now)
     zone_status = models.CharField(max_length=20,choices=[('notStart', 'Not Started'), ('Pending', 'Pending'), ('Completed', 'Completed')], default= "notStart")
     zone_color = models.CharField(max_length=20,choices=[('green', 'Green'), ('orange', 'Orange'), ('red', 'Red')], default= "orange")
     zone_area = models.FloatField(default=0)
