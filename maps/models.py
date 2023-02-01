@@ -20,7 +20,7 @@ class Zone(models.Model):
     zone_num = models.IntegerField(default=0)
     zone_date = models.DateTimeField(default=datetime.now)
     zone_status = models.CharField(max_length=20,choices=[('notStart', 'Not Started'), ('Pending', 'Pending'), ('Completed', 'Completed')], default= "notStart")
-    zone_color = models.CharField(max_length=20,choices=[('#97c900', 'Green'), ('#fc8d49', 'Orange'), ('#ff1919', 'Red')], default= "orange")
+    zone_color = models.CharField(max_length=20,choices=[('#97c900', 'Green'), ('#fc8d49', 'Orange'), ('#ff1919', 'Red')], default= "#fc8d49")
     zone_area = models.FloatField(default=0)
     zone_coordinates = ArrayField(
         ArrayField(models.FloatField(max_length=255)), 
