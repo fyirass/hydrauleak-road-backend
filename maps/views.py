@@ -13,7 +13,8 @@ class ZoneViewSet(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
         count = queryset.count()
-        response = {'count': count}
+        serializer = self.get_serializer(queryset, many=True)
+        response = {'count': count, 'data': serializer.data}
         return Response(response)
 
     
@@ -26,7 +27,8 @@ class SensorViewSet(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
         count = queryset.count()
-        response = {'count': count}
+        serializer = self.get_serializer(queryset, many=True)
+        response = {'count': count, 'data': serializer.data}
         return Response(response)
 
 class PipeViewSet(viewsets.ModelViewSet):
@@ -37,7 +39,8 @@ class PipeViewSet(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
         count = queryset.count()
-        response = {'count': count}
+        serializer = self.get_serializer(queryset, many=True)
+        response = {'count': count, 'data': serializer.data}
         return Response(response)
 
 class PipeAccesViewSet(viewsets.ModelViewSet):
@@ -48,7 +51,8 @@ class PipeAccesViewSet(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
         count = queryset.count()
-        response = {'count': count}
+        serializer = self.get_serializer(queryset, many=True)
+        response = {'count': count, 'data': serializer.data}
         return Response(response)
 
 class MarkViewSet(viewsets.ModelViewSet):
@@ -59,7 +63,8 @@ class MarkViewSet(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
         count = queryset.count()
-        response = {'count': count}
+        serializer = self.get_serializer(queryset, many=True)
+        response = {'count': count, 'data': serializer.data}
         return Response(response)
 
 class LeakerVehicleViewSet(viewsets.ModelViewSet):
@@ -70,7 +75,8 @@ class LeakerVehicleViewSet(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
         count = queryset.count()
-        response = {'count': count}
+        serializer = self.get_serializer(queryset, many=True)
+        response = {'count': count, 'data': serializer.data}
         return Response(response)
 
 class MapViewSet(viewsets.ModelViewSet):
@@ -81,5 +87,6 @@ class MapViewSet(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
         count = queryset.count()
-        response = {'count': count}
+        serializer = self.get_serializer(queryset, many=True)
+        response = {'count': count, 'data': serializer.data}
         return Response(response)
