@@ -42,7 +42,7 @@ class Sensor(models.Model):
     sensor_title = models.CharField(max_length=100)
     sensor_description = models.TextField()
     sensor_diameter_range = models.FloatField(default=0)
-    sensor_frequency = ArrayField(ArrayField(models.FloatField()), blank=True,size=2)
+    sensor_frequency = ArrayField(ArrayField(models.FloatField()), blank=True,size=2, null=True)
     sensor_Indication = models.CharField(max_length=20,choices=[('critical', 'Critical'), ('notable', 'Notable'), ('good', 'Good'),('unknown', 'Unknown'), ('empty', 'Empty')], default='unknown')
 
     def __str__(self):
@@ -74,10 +74,14 @@ class PipeAcces(models.Model):
 class Mark(models.Model):
     id = models.AutoField(primary_key=True)
     pipe = models.ForeignKey('Pipe',related_name='pipe_marks', on_delete=models.CASCADE)
+    
+    mark_title = models.CharField(max_length=100,blank=True)
+    mark_description = models.TextField()
     mark_coordinates = ArrayField(models.FloatField(),size=2)
     mark_creation_date = models.DateTimeField(default=datetime.now)
     mark_photo = models.ImageField(upload_to='marks', blank=True)
-    mark_description = models.TextField()
+    
+    
 
     def __str__(self):
         return self.mark_description
