@@ -42,7 +42,9 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     permission_classes = [SignupPermission]
     serializer_class = UserSerializer
-
+    pagination_class = None 
+    
+     
     @action(detail=False, methods=['POST'])
     def signup(self, request):
         serializer = SignupSerializer(data=request.data)
