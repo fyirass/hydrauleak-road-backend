@@ -1,15 +1,13 @@
 from django.db import models
 from datetime import datetime
-from leakers.models import Leaker
-from clients.models import Client
+from user.models import User
 from django.contrib.postgres.fields import ArrayField
 from django.core.validators import FileExtensionValidator
 
 class Report(models.Model):
     
     
-    leaker = models.ForeignKey(Leaker, on_delete=models.CASCADE, blank=True, null=True)
-    client = models.ForeignKey(Client, on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
     
     subject = models.CharField(max_length=100)
     message = models.TextField(blank=True)
