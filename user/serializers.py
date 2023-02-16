@@ -44,7 +44,7 @@ class SignupSerializer(serializers.ModelSerializer):
         return data
 
 class UserSerializer(serializers.ModelSerializer):
-    roles = serializers.CharField(read_only=True)
+    # roles = serializers.CharField(read_only=True)
     class Meta:
         model = User
         fields = ('id', 'name', 'email', 'phone', 'roles')

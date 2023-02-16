@@ -10,6 +10,7 @@ class Report(models.Model):
     
     leaker = models.ForeignKey(Leaker, on_delete=models.CASCADE, blank=True, null=True)
     client = models.ForeignKey(Client, on_delete=models.CASCADE, blank=True, null=True)
+    
     subject = models.CharField(max_length=100)
     message = models.TextField(blank=True)
     

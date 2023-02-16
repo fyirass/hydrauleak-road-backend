@@ -24,7 +24,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
     phone = models.CharField(max_length=20, blank=True)
     is_active = models.BooleanField(default=True)
-    roles = models.CharField(max_length=255, default="", choices=(("is_admin", "is_admin"), ("is_leaker", "is_leaker"), ("is_client", "is_client")))
+    roles = models.CharField(max_length=255, default="is_client", choices=(("is_admin", "is_admin"), ("is_leaker", "is_leaker"), ("is_client", "is_client")))
     date_joined = models.DateTimeField(auto_now_add=True)
     objects = UserManager()
     USERNAME_FIELD = 'email'
