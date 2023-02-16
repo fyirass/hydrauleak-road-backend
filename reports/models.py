@@ -9,6 +9,9 @@ class Report(models.Model):
     
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
     
+    user_name = models.CharField(max_length=100, blank=True)
+    user_role = models.CharField(max_length=100, blank=True)
+    
     subject = models.CharField(max_length=100)
     message = models.TextField(blank=True)
     
