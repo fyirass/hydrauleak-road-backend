@@ -5,9 +5,14 @@ from user.serializers import UserSerializer
 class ReportSerializer(serializers.ModelSerializer):
     
     user = UserSerializer(read_only=True)
-    user_name = user.name
-    user_role = user.roles
-    
+    user_name = serializers.SerializerMethodField()
+    user_role = serializers.SerializerMethodField()
+
+    def get_user_name(self, obj):
+        return obj.user.name
+
+    def get_user_role(self, obj):
+        return obj.user.roles
     
     class Meta:
         model = Report
