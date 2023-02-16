@@ -12,10 +12,10 @@ class Report(models.Model):
     subject = models.CharField(max_length=100)
     message = models.TextField(blank=True)
     
-    add_sensor_coordinates = ArrayField(models.FloatField(),size=2)
-    add_mark_coordinates = ArrayField(models.FloatField(),size=2)
-    add_pipe_coordinates = ArrayField(models.FloatField(),size=2)
-    add_pipe_access_coordinates = ArrayField(models.FloatField(),size=2)
+    add_sensor_coordinates = ArrayField(models.FloatField(),size=2, blank=True)
+    add_mark_coordinates = ArrayField(models.FloatField(),size=2, blank=True)
+    add_pipe_coordinates = ArrayField(models.FloatField(),size=2, blank=True)
+    add_pipe_access_coordinates = ArrayField(models.FloatField(),size=2, blank=True)
     
     image = models.ImageField(upload_to='report_image', blank=True)
     
