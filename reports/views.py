@@ -11,7 +11,8 @@ from email.mime.image import MIMEImage
 class ReportViewSet(viewsets.ModelViewSet):
     queryset = Report.objects.all()
     serializer_class = ReportSerializer
-
+    pagination_class = None 
+    
     def perform_create(self, serializer):
         report = serializer.save()
         self.send_report_email(report)
