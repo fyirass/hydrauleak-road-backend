@@ -8,6 +8,7 @@ class InterventionViewSet(viewsets.ModelViewSet):
     permissions_classes = [IsAuthenticated]
     queryset = Intervention.objects.all()
     serializer_class = InterventionSerializer
+    pagination_class = None 
     
     
     
