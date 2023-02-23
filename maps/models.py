@@ -66,7 +66,7 @@ class PipeAcces(models.Model):
     pipe_access_coordinates = ArrayField(models.FloatField(),size=2)
     pipe_access_title = models.CharField(max_length=100)
     pipe_access_description = models.TextField()
-    pipe_access_type = models.CharField(max_length=20,choices=[('HouseValve', 'House Valve'), ('FirePole', 'Fire Pole'), ('FireHydrantValve', 'Fire Hydrant Valve'), ('Other', 'Other')], default='other')
+    pipe_access_type = models.CharField(max_length=20,choices=[('HouseValve', 'House Valve'), ('FirePole', 'Fire Pole'), ('FireHydrantValve', 'Fire Hydrant Valve'), ('Other', 'Other')], default='Other')
 
     def __str__(self):
         return self.pipe_access_title
