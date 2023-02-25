@@ -1,11 +1,15 @@
-# serializers.py
-
 from rest_framework import serializers
 from .models import Client
+from user.models import User
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id','roles', 'name', 'phone')
 
 
 class ClientSerializer(serializers.ModelSerializer):
-    user = serializers.PrimaryKeyRelatedField(read_only=True)
+    user = UserSerializer(read_only=True)
 
     class Meta:
         model = Client
