@@ -9,7 +9,8 @@ from .models import Client, ClienTFile, User
 class ClientViewSet(viewsets.ModelViewSet):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
-
+    pagination_class = None
+    
     def get_serializer_class(self):
         if self.action in ('create', 'update', 'partial_update'):
             return ClientWriteSerializer
