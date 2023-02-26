@@ -6,7 +6,18 @@ from .serializers import *
 from rest_framework.decorators import permission_classes
 # from clients.models import Client
 
+
+class IsClient(permissions.BasePermission):
+    
+    
+    def has_permission(self, request, view):
+        
+        if request.user.is_authenticated and request.user.roles=="is_client":
+            return permissions.IsAuthenticated
+        return False 
+    
 class IsLeaker(permissions.BasePermission):
+
     
     def has_permission(self, request, view):
         
@@ -26,7 +37,7 @@ class ContractList(APIView):
     
     permission_classes = [permissions.IsAuthenticated]
     def get(self, request):
-        if request.user.roles=="is_leaker" or request.user.roles=="is_admin":
+        if request.user.roles=="is_leaker" or request.user.roles=="is_admin" or request.user.roles=="is_client":
             contracts = Contract.objects.all()
             serializer = ContractSerializer(contracts, many=True)
             return Response(serializer.data)
