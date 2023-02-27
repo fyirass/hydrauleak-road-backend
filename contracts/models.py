@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.timezone import now
 from clients.models import Client
-from maps.models import Zone
+# from maps.models import Zone
 
 class Contract(models.Model):
     
@@ -28,7 +28,6 @@ class Contract(models.Model):
         IS_NOT_PUBLISHED = 'Not Published'    
     
     client = models.ForeignKey(Client, on_delete=models.SET_NULL , related_name='contracts', null=True, blank=True)
-    zone = models.OneToOneField(Zone, on_delete=models.CASCADE, blank=True, null=True)
     contract_title = models.CharField(max_length=150, blank=True)
     contract_description = models.TextField(blank=True)
     contract_type = models.CharField(max_length=50, choices=ContractType.choices, default=ContractType.SIMPLE, blank=True)

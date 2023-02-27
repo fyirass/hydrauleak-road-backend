@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.postgres.fields import ArrayField
 from datetime import datetime
 from leakers.models import Leaker
+from interventions.models import Intervention
 
 class Map(models.Model):
     id = models.AutoField(primary_key=True)
@@ -16,6 +17,7 @@ class Map(models.Model):
 class Zone(models.Model):
     
     id = models.AutoField(primary_key=True)
+    intervention = models.OneToOneField(Intervention, on_delete=models.CASCADE, null=True, blank=True)
     map = models.ForeignKey(Map, on_delete=models.SET_NULL, related_name="maps", null=True, blank=True)
     zone_title = models.CharField(max_length=100, blank=True)
     zone_description = models.TextField(blank=True)
