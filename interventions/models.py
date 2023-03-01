@@ -34,10 +34,10 @@ class Intervention(models.Model):
     intervention_status = models.CharField(max_length=50, choices=InterventionStatus.choices, default=InterventionStatus.NOTSTART)
     
     intervention_date = models.DateTimeField(default=now, blank=True) 
-    address = models.CharField(max_length=150)
-    city = models.CharField(max_length=100)
-    state = models.CharField(max_length=100)
-    zipcode = models.CharField(max_length=15)
+    address = models.CharField(max_length=150, blank=True)
+    city = models.CharField(max_length=100, blank=True)
+    state = models.CharField(max_length=100, blank=True)
+    zipcode = models.CharField(max_length=15, blank=True)
     
     is_published = models.CharField(max_length=50, choices=InterventionPublished.choices, default=InterventionPublished.IS_NOT_PUBLISHED)
     
