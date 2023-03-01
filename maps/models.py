@@ -31,7 +31,7 @@ class Zone(models.Model):
         size=None, # size = None means it can be a dynamic array
     )
     def __str__(self):
-        return self.zone_status
+        return self.zone_title
          
 class Sensor(models.Model):
     
