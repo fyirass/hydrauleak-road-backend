@@ -17,7 +17,7 @@ class Map(models.Model):
 class Zone(models.Model):
     
     id = models.AutoField(primary_key=True)
-    intervention = models.ForeignKey(Map, on_delete=models.SET_NULL, null=True, blank=True)
+    intervention = models.ForeignKey(Intervention, on_delete=models.SET_NULL, null=True, blank=True)
     map = models.ForeignKey(Map, on_delete=models.SET_NULL, related_name="maps", null=True, blank=True)
     zone_title = models.CharField(max_length=100, blank=True)
     zone_description = models.TextField(blank=True)
