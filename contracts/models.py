@@ -18,10 +18,10 @@ class Contract(models.Model):
     from django.db import models
 
     class ContractWorkType(models.TextChoices):
-        FIRE_HYDRANT_INSPECTION = 'Fire Hydrant Inspection'
-        ALL_CITY_INSPECTIONS = 'All City Inspections'
-        CLARIFY_LEAK_LOCATION = 'Clarifying the location of the leak'
-        SOLVE_HIGH_CONSUMPTION = 'Solve high consumption problem but the leak is not identified'
+        FIRE_HYDRANT_INSPECTION = 'Fire_Hydrant_Inspection'
+        ALL_CITY_INSPECTIONS = 'All_City_Inspections'
+        CLARIFY_LEAK_LOCATION = 'Clarifying_the_location_of_the_leak'
+        SOLVE_HIGH_CONSUMPTION = 'Solve_high_consumption_problem_but_the_leak_is_not_identified'
 
     class InterventionPublished(models.TextChoices):
         IS_PUBLISHED = 'Published'
