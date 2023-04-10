@@ -27,8 +27,7 @@ class Contract(models.Model):
         IS_PUBLISHED = 'Published'
         IS_NOT_PUBLISHED = 'Not Published'    
     
-    client = models.ForeignKey(Client, on_delete=models.DO_NOTHING)
-    # client = models.ForeignKey(Client, on_delete=models.SET_NULL , related_name='contracts', null=True, blank=True)
+    client = models.ForeignKey(Client, on_delete=models.SET_NULL , related_name='contracts', null=True, blank=True)
     contract_title = models.CharField(max_length=150, blank=True)
     contract_description = models.TextField(blank=True)
     contract_type = models.CharField(max_length=50, choices=ContractType.choices, default=ContractType.SIMPLE, blank=True)
