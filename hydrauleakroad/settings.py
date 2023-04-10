@@ -140,8 +140,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'd24a3tbdorlvvn',
         'USER': 'uivalqdpwscpbr',
-        'PASSWORD': '0be2bf3e5b722f4fb9c82562d22041e718741516b8866ccac501b10622976990',
-        'HOST': 'ec2-54-220-227-222.eu-west-1.compute.amazonaws.com',
+        'PASSWORD': '0be2bf3e5b722f4fb9c866ccac501b10622976990',
+        'HOST': 'ec2-54-220-227-22ompute.amazonaws.com',
         'PORT': '5432',
     }
 }
@@ -153,7 +153,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = '587'
 EMAIL_HOST_USER = 'info@hydrauleak.com'
-EMAIL_HOST_PASSWORD = "lcixmyacsomrffch"
+EMAIL_HOST_PASSWORD = "lcirffch"
 EMAIL_USE_TLS = True
 
 
