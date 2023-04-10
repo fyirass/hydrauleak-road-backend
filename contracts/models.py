@@ -33,7 +33,7 @@ class Contract(models.Model):
     contract_type = models.CharField(max_length=50, choices=ContractType.choices, default=ContractType.SIMPLE, blank=True)
     contract_status = models.CharField(max_length=50, choices=ContractStatus.choices, default=ContractStatus.NOTSTART, blank=True)
     
-    contract_work_type = models.CharField(max_length=200, choices=ContractWorkType.choices, default=ContractWorkType.FIRE_HYDRANT_INSPECTION, blank=True)
+    contract_work_type = models.CharField(max_length=200, default="Fire_Hydrant_Inspection", blank=True)
      
     contract_date = models.DateField(default=now, blank=True) 
     contract_estimate_end_date = models.DateField( blank=True) 
